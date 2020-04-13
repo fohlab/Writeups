@@ -7,3 +7,12 @@
   
 ### Information Gathering
 ---
+
+First of all, we open **nmap**. Run `nmap -sC -sV -p- -oA brainpan.nmap 10.0.2.8` (replace your target IP)
+
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/first.png">
+
+We can see that there are only two ports open and two services running on the machine, one at **9999** and the other at **10000**.
+
+
+
