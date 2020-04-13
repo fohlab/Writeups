@@ -8,7 +8,7 @@
 ### Information Gathering
 ---
 
-First of all, we open **nmap**. Run `nmap -sC -sV -p- -oA brainpan.nmap 10.0.2.8` (replace your target IP)
+First of all, we run **nmap** with `nmap -sC -sV -p- -oA brainpan.nmap 10.0.2.8` (replace your target IP)  
 
 <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/first.png">
 
