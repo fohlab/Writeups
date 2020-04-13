@@ -14,51 +14,61 @@ First of all, we run **nmap** with `nmap -sC -sV -p- -oA brainpan.nmap 10.0.2.8`
 
 We can see that there are only two ports open and two services running on the machine, one at **9999** and the other at **10000**.
 
-Navigating to **10.0.2.8:9999** with firefox returns
-<!-- second -->
+Navigating to **10.0.2.8:9999** with firefox returns  
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/second.png">
+
 The service running there seems to be expecting a password but it doesn't seem to work over http.
 
 Let's try talking to it with **nc** with `nc 10.0.2.8 9999`
 
-<!-- six -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/six.png">
+
 
 We can now input a password but we don't know it **_yet_**.
 
 Navigating to **10.0.2.8:10000** returns
-<!-- thrid -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/third.png">
+
 Just a page with an image.
 
-At this point we can put **gobuster** (directory fuzzing tool) running in the background with `gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://10.0.2.8:10000/ -t 5 --timeout 50s`
+At this point we can put **gobuster** (directory fuzzing tool) running in the background with   
+`gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://10.0.2.8:10000/ -t 5 --timeout 50s`
 
 The high timeout was selected because the HTTP Server running is just a python module and can't handle that much traffic at once. Choosing a lower one returns a lot of errors.
 
 After a while, gobuster returns an interesting directory **_/bin_**.
 
-<!-- fourth -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/fourth.png">
+
 
 Navigating there we see only one file called **brainpan.exe**
 
-<!-- five -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/five.png">
+
 
 Let's download it.
 
 Running it locally with **wine** reveals it is someking of server expecting for connections at port 9999, just like the service on the box.
 
-<!-- seven -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/seven.png">
+
 
 The program now listens on localhost, so let's connect with **nc** at our own machine at port 9999.
 
-<!-- eigth -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/eight.png">
+
 
 It is clear now that **brainpan.exe** is a copy of the program listening at **9999** at the **remote** box.
 
 Although it is a Windows executable, we can still run `strings` on it.
 
-<!-- nine -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/nine.png">
+
 
 This looks interesting.
 
-<!-- ten -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/ten.png">
+
 
 This seems to be the correct password but nothing happens when we type it, even at the remote service, so it's pretty useless.
 
