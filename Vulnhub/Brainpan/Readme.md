@@ -27,8 +27,8 @@ Let's try talking to it with **nc** with `nc 10.0.2.8 9999`
 
 We can now input a password but we don't know it **_yet_**.
 
-Navigating to **10.0.2.8:10000** returns
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/third.png">
+Navigating to **10.0.2.8:10000** returns  
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/third.png">  
 
 Just a page with an image.
 
@@ -80,6 +80,8 @@ We can move **brainpan.exe** to our windows machine for easier analysis.
 
 Start up **Immunity Debugger** and run the program.
 
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/eleven.png">
+
 We will try to crash the application.
 
 Open an ubuntu terminal from the installed ubuntu subsystem on windows, and create a python script like this
@@ -91,7 +93,7 @@ print b"A" * 1000
 
 Now echo the output to a file `python test.py > crash` , and run `nc 192.168.2.11 9999 <crash` to give the contents of **crash** as input for the password to the program. After running, take a look at **immunity**.
 
-<!-- twelve -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/twelve.png">
 
 We see that not only we crashed the program but we also **overwrote** the instruction pointer **eip**. 
 We have a **Buffer Overflow!**.
