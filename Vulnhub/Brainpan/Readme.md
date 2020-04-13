@@ -96,7 +96,7 @@ Now echo the output to a file `python test.py > crash` , and run `nc 192.168.2.1
 <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/twelve.png">
 
 We see that not only we crashed the program but we also **overwrote** the instruction pointer **eip**. 
-We have a **Buffer Overflow!**.
+We have a **Buffer Overflow!**
 
 ## Exploitation
 ---
