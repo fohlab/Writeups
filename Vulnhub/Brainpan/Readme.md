@@ -14,7 +14,8 @@ First of all, we run **nmap** with `nmap -sC -sV -p- -oA brainpan.nmap 10.0.2.8`
 
 We can see that there are only two ports open and two services running on the machine, one at **9999** and the other at **10000**.
 
-Navigating to **10.0.2.8:9999** with firefox returns  
+Navigating to **10.0.2.8:9999** with firefox returns   
+
 <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/second.png">
 
 The service running there seems to be expecting a password but it doesn't seem to work over http.
@@ -74,6 +75,31 @@ This seems to be the correct password but nothing happens when we type it, even 
 
 ## Vulnerability Analysis
 ---
+
+We can move **brainpan.exe** to our windows machine for easier analysis.
+
+Start up **Immunity Debugger** and run the program.
+
+We will try to crash the application.
+
+Open an ubuntu terminal from the installed ubuntu subsystem on windows, and create a python script like this
+
+```python
+
+print b"A" * 1000
+```
+
+Now echo the output to a file `python test.py > crash` , and run `nc 192.168.2.11 9999 <crash` to give the contents of **crash** as input for the password to the program. After running, take a look at **immunity**.
+
+<!-- twelve -->
+
+We see that not only we crashed the program but we also **overwrote** the instruction pointer **eip**. 
+We have a **Buffer Overflow!**.
+
+## Exploitation
+---
+
+Through a little trial and error, we find that we need to print **524** bytes to start overwriting **eip**.
 
 
 
