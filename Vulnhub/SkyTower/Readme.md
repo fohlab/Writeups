@@ -63,7 +63,7 @@ Specifically, **OR**,**=** and our comment **--**.
   
 * Let's try again then
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/6.png>
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/6.png">
 
 
 **We succesfully logged in!**
