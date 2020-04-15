@@ -43,7 +43,7 @@
 ### Exploitation
 ---
 
-* Start up **Burp Suite**, submit a fake login and capture the request and send it to **repeater** for easier testing.
+* Start up **Burp Suite**, submit a fake login and capture the request. Then send it to **repeater** for easier testing.
 
 <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/4.png">
 
