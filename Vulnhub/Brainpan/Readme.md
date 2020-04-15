@@ -3,7 +3,7 @@
 * ### Setup
 
   Download the virtual machine <a href="https://www.vulnhub.com/entry/brainpan-1,51/">here</a> and import it in either VirtualBox or        VMWare.
-  * **Addresses** - This will be important to underdstand the writeup.
+  * **Addresses** - This will be important to understand the writeup.
     * My Windows machine: **192.168.2.11**
     * My Kali machine: **10.0.2.15**
     * Brainpan machine: **10.0.2.8**
