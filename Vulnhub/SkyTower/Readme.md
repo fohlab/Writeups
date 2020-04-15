@@ -77,6 +77,56 @@ One solution is to reach that port through the proxy running at **3128**. So we 
 
 Now run ssh through proxychains with `proxychains ssh john@10.0.2.10`. This works but the connection opens and closes immediately. We can fix this by connecting with  `proxychains ssh john@10.0.2.10 /bin/bash` which will execute **bash** upon entering the connection.
 
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/8.png">
+
+
+Now we have a shell.
+
+### Privilege Escalation
+---
+
+Going back a directory and runnnig `ls`, we discover other **two** users in the system. **sara** and **william**.
+
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/9.png">
 
   
+There are two ways to get their credentials.
+
+* First
+
+  Get the first few lines of code of the login page with `head /var/www/login.php`
   
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/10.png">
+
+  
+  This way we find out the root password for the database. Note that we also see what kind of syntax filter was implemented :)
+  
+  If we want to login to the database and execute commands easily, we will have to get a more stable shell. I managed to do that by switching to **/bin/sh** by executing `/bin/sh -i`.
+  
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/11.png">
+
+
+  This way we got the credentials for the other users
+  
+  * Second way
+  
+  We could also leverage the SQL Injection.
+  When we gave `' || 1 #` as input, it logged in as the first user found at the `login` mysql table.
+  What if we used the mysql the `LIMIT`  and `OFFSET` command?
+  
+  Going back into burp
+  
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/12.png">
+  
+  We can do the same for william with **OFFSET 2**.
+  
+  * Login as sara and see what you can do as **root** with `sudo -l`.
+  
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/13.png">
+  
+  We see that we can run `cat` and `ls` as root with no password fot the directories from `/accounts/*`. But this can easily be bypassed and exploited.
+  
+ <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/14.png">
+ 
+ ## Rooted!
+ 
