@@ -72,4 +72,11 @@ Specifically, **OR**,**=** and our comment **--**.
 
 <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/7.png">
 
+* Trying to log in with those credentials doesn;t work, but this is due to the ssh port being **_filtered_**.
+One solution is to reach that port through the proxy running at **3128**. So we must set the correct **proxychains** configurations by adding `http 10.0.2.10 3128` at the end of `/etc/proxychains.conf`.
 
+Now run ssh through proxychains with `proxychains ssh john@10.0.2.10`. This works but the connection opens and closes immediately. We can fix this by connecting with  `proxychains ssh john@10.0.2.10 /bin/bash` which will execute **bash** upon entering the connection.
+
+
+  
+  
