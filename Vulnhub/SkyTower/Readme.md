@@ -112,7 +112,7 @@ There are two ways to get their credentials.
   
   We could also leverage the SQL Injection.
   When we gave `' || 1 #` as input, it logged in as the first user found at the `login` mysql table.
-  What if we used the mysql the `LIMIT`  and `OFFSET` command?
+  What if we used the mysql `LIMIT`  combined with `OFFSET` command?
   
   Going back into burp
   
