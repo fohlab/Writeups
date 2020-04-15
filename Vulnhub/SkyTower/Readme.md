@@ -25,7 +25,7 @@
 <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/SkyTower/images/2.png">
 
 
-* Starting up **gobuster** and **nikto** doesn't return any interesting results and navigating to **10.0.2.10:3128** returns a non-useful error.
+* Starting up **gobuster** and **nikto** doesn't return any interesting results and navigating to **10.0.2.10:3128** returns a non-useful error. So this login page appears to be our main attack surface.
 
 ### Vulnerability Analysis
 ---
