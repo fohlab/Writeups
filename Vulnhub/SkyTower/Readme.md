@@ -20,7 +20,7 @@
 2. A <a href="https://en.wikipedia.org/wiki/Squid_(software)">squid proxy</a> is running at port **3128**.
 3. And finally a **Web server** 
 
-* Navigating to **http://10.0.2.10**, we find it is a login page asking for credentials.
+* Navigating to **10.0.2.10**, we find it is a login page asking for credentials.
 
 <!-- login page -->
 
@@ -29,7 +29,7 @@
 <!-- go -->
 <!-- nikto -->
 
-* Navigating to **http://10.0.2.10:3128/** returns a non-useful error.
+* Navigating to **10.0.2.10:3128** returns a non-useful error.
 
 <!-- squid -->
 
@@ -45,6 +45,9 @@
   
   * Looks like it is **Vulnerable!**.
   
+### Exploitation
+---
+
 * Start up **Burp Suite**, submit a fake login and capture the request and send it to **repeater** for easier testing.
 
 <!-- 4 -->
@@ -56,6 +59,18 @@
 * Our login failed with an SQL error, but we notice something far more important in the respone. Some of our input was **filtered out**.
 Specifically, **OR**,**=** and our comment **--**.
 
-* We will circumvent this filter by doing the following **substitutions** that are allowed in **sql syntax**
-  1.
+* We will circumvent this filter by doing the following **substitutions** that are allowed in **sql syntax**  
+  * **OR**  &rarr; **||**
+  * **=**   &rarr; (blank) because it is not needed since just **OR 1** is a valid **_true_** expression
+  * **--**  &rarr; **#**
   
+* Let's try again then
+
+<!-- 6 -->
+
+**We succesfully logged in!**
+
+* Typing the same input in the Browser returns this page after login, giving us **ssh credentials** for the user **john**.
+
+<!-- 7 -->
+
