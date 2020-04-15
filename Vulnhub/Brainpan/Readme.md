@@ -52,7 +52,7 @@ Navigating there we see only one file called **brainpan.exe**
 
 Let's download it.
 
-Running it locally with **wine** reveals it is someking of server expecting for connections at port 9999, just like the service on the box.
+Running it locally with **wine** reveals it is some kind of server expecting for connections at port 9999, just like the service on the box.
 
 <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Brainpan/images/seven.png">
 
