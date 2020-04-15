@@ -92,7 +92,7 @@ Going back a directory and runnnig `ls`, we discover other **two** users in the 
   
 There are two ways to get their credentials.
 
-* First
+* ## First way
 
   Get the first few lines of code of the login page with `head /var/www/login.php`
   
@@ -108,7 +108,7 @@ There are two ways to get their credentials.
 
   This way we got the credentials for the other users
   
-  * Second way
+  * ## Second way
   
   We could also leverage the SQL Injection.
   When we gave `' || 1 #` as input, it logged in as the first user found at the `login` mysql table.
