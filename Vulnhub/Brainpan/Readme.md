@@ -207,6 +207,8 @@ As we have already noticed the remote host is actually a Linux box running **cmd
 
 Typing this command in the given shell and in parallel listenining at port **1337** in our box returns a proper linux shell at us. ( I tried 2 or 3 times to get this to work).
 
+Now that we have a stable **BASH** shell, run `sudo -l` to see what can be run as **root** from the user **puck**. If you run this command you will see that you can run ` /home/anansi/bin/anansi_util` as **root** with **no** password needed.
+
 
 
 
