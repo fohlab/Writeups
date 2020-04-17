@@ -210,5 +210,5 @@ Typing this command in the given shell and in parallel listenining at port **133
 Now that we have a stable **BASH** shell, run `sudo -l` to see what can be run as **root** from the user **puck**. If you run this command you will see that you can run ` /home/anansi/bin/anansi_util` as **root** with **no** password needed.
 
 
-
+https://superuser.com/questions/521399/how-do-i-execute-a-linux-command-whilst-using-the-less-command-or-within-the-man
 
