@@ -6,7 +6,7 @@
   SSH as **bandit0** with `ssh -p 2220 bandit0@bandit.labs.overthewire.org` giving password **bandit0**.
 
 
-* **Level - 1**
+* **Level - 0**
 
   After logging in as **bandit0** do 
   ```bash
@@ -17,7 +17,7 @@
     ```
     The hash is the password for **bandit**.
     
- * **Level - 2**
+ * **Level - 1**
  
     After loggin in as **bandit1** and running `ls` we see a file named **-**. The problem is you can't directly `cat` that 
     because **-** is another name for **stdin** in **Linux** , and therefore `cat -` will just tell **cat** to wait for args 
@@ -31,7 +31,7 @@
     ```
     
     
- * **Level - 3**
+ * **Level - 2**
     
     After running `ls` you will see a file that has spaces in its name. There are two ways to access such files in **bash**
     ```bash
@@ -42,7 +42,7 @@
     bandit2@bandit:~$ cat spaces\ in\ this\ filename
     UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK```
       
- * **Level - 4**
+ * **Level - 3**
 
     Use `-a` parameter for `ls` to show **all** files. Read more with `man ls`.
     ```bash
@@ -60,6 +60,21 @@
     ```
     
 
- * **Level - 5**
+ * **Level - 4**
  
  
+    After running `ls` into **inhere**, running the `file` command we find only one file containing ASCII data.
+    <!-- bandit4 -->
+    
+* **Level - 5**    
+
+     The page informs us that
+     > The password for the next level is stored in a file somewhere under the inhere directory and has all of the following             properties: - human-readable - 1033 bytes in size - not executable
+    
+    You can just use the first bit of info and run `du -a -b | grep 1033` or all and run `find ./ -type f -size 1033c ! -executable`
+    
+    ```bash
+    bandit5@bandit:~/inhere$ cat ./maybehere07/.file2
+    DXjZPULLxYr17uwoI01bNLQbtFemEgo```
+    
+* **Level - 6** 
