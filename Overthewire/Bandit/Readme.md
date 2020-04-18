@@ -10,7 +10,7 @@
 
   After logging in as **bandit0** do 
   ```bash
-    bandit0@bandit:~$ ls readme
+    bandit0@bandit:~$ ls
     readme
     bandit0@bandit:~$ cat readme
     boJ9jbbUNNfktd78OOpsqOltutMc3MY1
@@ -19,4 +19,47 @@
     
  * **Level - 2**
  
+    After loggin in as **bandit1** and running `ls` we see a file named **-**. The problem is you can't directly `cat` that 
+    because **-** is another name for **stdin** in **Linux** , and therefore `cat -` will just tell **cat** to wait for args 
+    from **stdin**.
     
+    Bypass this giving the full path with `./-`.
+    
+    ```bash
+    cat ./-
+    CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+    ```
+    
+    
+ * **Level - 3**
+    
+    After running `ls` you will see a file that has spaces in its name. There are two ways to access such files in **bash**
+    ```bash
+    bandit2@bandit:~$ ls
+    spaces in this filename
+    bandit2@bandit:~$ cat "spaces in this filename"
+    UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+    bandit2@bandit:~$ cat spaces\ in\ this\ filename
+    UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK```
+      
+ * **Level - 4**
+
+    Use `-a` parameter for `ls` to show **all** files. Read more with `man ls`.
+    ```bash
+    bandit3@bandit:~$ ls
+    inhere
+    bandit3@bandit:~$ cd inhere
+    bandit3@bandit:~/inhere$ ls
+    bandit3@bandit:~/inhere$ ls -la
+    total 12
+    drwxr-xr-x 2 root    root    4096 Oct 16  2018 .
+    drwxr-xr-x 3 root    root    4096 Oct 16  2018 ..
+    -rw-r----- 1 bandit4 bandit3   33 Oct 16  2018 .hidden
+    bandit3@bandit:~/inhere$ cat .hidden
+    pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+    ```
+    
+
+ * **Level - 5**
+ 
+ 
