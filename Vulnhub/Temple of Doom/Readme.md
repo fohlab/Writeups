@@ -2,7 +2,7 @@
 
 * ### Setup
 
-  Download the virtual machine <a href="https://www.vulnhub.com/entry/brainpan-1,51/">here</a> and import it in either VirtualBox or        VMWare.
+  Download the virtual machine <a href="https://www.vulnhub.com/entry/temple-of-doom-1,243/">here</a> and import it in either VirtualBox or VMWare.
   * **Addresses** - This will be important to understand the writeup.
     * My Kali machine: **10.0.2.15**
     * Temple of Doom machine: **10.0.2.14**
