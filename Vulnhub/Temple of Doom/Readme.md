@@ -114,7 +114,7 @@ We can see the cookie is actually the **object**
 
 **Bonus:** Notice that the last value is not properly formatted and needs an extra `"`. Fix the object syntax, base64 encode it, then url-encode and include it in the request. You will be greeted with:
 
-] <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/8.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/8.jpg">
 
 This doesn't help us in anyway.
 
@@ -173,7 +173,7 @@ which will return a reverse shell to us on port **1337**.
 
 * Let's check what **fireman** can run as **root** with `sudo -l`
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/sudol.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/sudol.jpg">
 
 * Referring to <a href="https://gtfobins.github.io/">GTFObins</a>, we see that we can use **tcpdump** to our advantage and execute commands as **root!**.
 
@@ -182,8 +182,8 @@ which will return a reverse shell to us on port **1337**.
 * Now run `sudo tcpdump -ln -i eth0 -w /dev/null -W 1 -G 1 -z /tmp/rootshell.sh -Z root` as user **fireman**.
 * Checking our session on port **4444**, reveals we have succesfully gained a **root shell!**.
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/slast.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/slast.jpg">
 
 ## Flag  
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/last.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/last.jpg">
