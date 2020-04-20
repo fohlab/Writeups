@@ -13,18 +13,18 @@
 ---
 
 * Running **nmap** with `nmap -sC -sV -p- -A -oA templeofdoom 10.0.2.14` reveals **two** ports.
-<!-- 1 -->  
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/1.jpg"> 
 
 1. **SSH** on default port **22** .
 2. A <a href="https://en.wikipedia.org/wiki/Node.js">NodeJs</a> server running at port **666**.
 
 Let's check the server at port **666**, while also setting **gobuster** and **nikto** running in the background.
 
-<!-- 2 -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/2.jpg">
 
 We see an under construction message. After fuzzing the url a little bit and reloading the page a few times, the application errors out with 
 
-<!-- 3 -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/3.jpg">
 
 This error tells us that something went wrong with the serialization process and we also notice the module doing the serialization is **node-serialize**.
 
@@ -38,7 +38,7 @@ Serialization refers to a process of converting an object into a format which ca
 Deserialization on the other hand, is the opposite of serialization, that is, transforming serialized data coming from a file, stream or network socket into an object.
 Web applications make use of serialization and deserialization on a regular basis and most programming languages even provide native features to serialize data. **It’s important to understand that safe deserialization of objects is normal practice in software development. The trouble however, starts when deserializing untrusted user input.**
 
-Based on the paper mentioned in the Information gathering section, we will create a test environment to confirm the vulnerablitiy.
+Based on the paper mentioned in the Information gathering section, we will **create a test environment to confirm the vulnerablitiy.**
 
 **1.** First install **npm** with `apt install npm`, then the vulnerable **node-serialize** module with `npm install node-serialize`.  
   Note: npm will now warn you the node-serialize was found to contain a serious vulnerability.
@@ -76,7 +76,7 @@ serialize.unserialize(payload);
 ```
 and run it.
 
-<!-- 4 -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/4.jpg">
 
 **We can clearly see our code got executed!**
 
@@ -94,7 +94,7 @@ serialize.unserialize(payload);
 ```
 and run locally, while also listening on port **1337**.
 
-<!-- 5 -->
+<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/5.jpg">
 
 **We have a shell!**. Now we have to do the same on the remote machine.
 
