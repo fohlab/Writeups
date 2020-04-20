@@ -153,4 +153,8 @@ Trying `ls` in the `/home` directory reveals another user called **fireman**.
 
 A process called **ss-manager** is running as user **fireman**.
 
+* Searching in google reveals <a href="https://www.cvedetails.com/cve/CVE-2017-15924/">CVE-2017-15924</a> and <a href="https://www.exploit-db.com/exploits/43006">exploit-db.com/exploits/43006</a>.
+>In manager.c in ss-manager in shadowsocks-libev 3.1.0, improper parsing allows command injection via shell metacharacters in a JSON configuration request received via 127.0.0.1 UDP traffic, related to the add_server, build_config, and construct_command_line functions.
+
+>The configuration file on the file system or the JSON configuration received via UDP request is parsed and the arguments are passed to the "add_server" function. The function calls "construct_command_line(manager, server);" which returns a string from the parsed configuration. The string gets executed at line 486 "if (system(cmd) == -1) {", so if a configuration parameter contains "||evil command&&" within the "method" parameter, the evil command will get executed.
 
