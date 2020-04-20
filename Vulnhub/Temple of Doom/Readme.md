@@ -13,18 +13,19 @@
 ---
 
 * Running **nmap** with `nmap -sC -sV -p- -A -oA templeofdoom 10.0.2.14` reveals **two** ports.
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/1.jpg"> 
+
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/1.jpg"> 
 
 1. **SSH** on default port **22** .
 2. A <a href="https://en.wikipedia.org/wiki/Node.js">NodeJs</a> server running at port **666**.
 
 Let's check the server at port **666**, while also setting **gobuster** and **nikto** running in the background.
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/2.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/2.jpg">
 
 We see an under construction message. After fuzzing the url a little bit and reloading the page a few times, the application errors out with 
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/3.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/3.jpg">
 
 This error tells us that something went wrong with the serialization process and we also notice the module doing the serialization is **node-serialize**.
 
@@ -76,7 +77,7 @@ serialize.unserialize(payload);
 ```
 and run it.
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/4.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/4.jpg">
 
 **We can clearly see our code got executed!**
 
@@ -94,7 +95,7 @@ serialize.unserialize(payload);
 ```
 and run locally, while also listening on port **1337**.
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/5.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/5.jpg" height="300px">
 
 **We have a shell!**. Now we have to do the same on the remote machine.
 
