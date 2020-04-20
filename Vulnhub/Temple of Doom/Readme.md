@@ -132,6 +132,7 @@ This doesn't help us in anyway.
 * Paste in burp and send the request, while having already set up a listening session with `nc -lvnp 1337`.
 
 * We get a shell! Now we make it more interactive with `python -c "import pty; pty.spawn('/bin/bash')"` and stop our input from being echoed back at us by `Ctr-Z` to pause the process, `stty raw -echo` and  `fg` to bring back the shell. We can see we are logged in as user **nodeadmin**.
+  
   <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/9.jpg">
 
 ## Privilege Escalation
