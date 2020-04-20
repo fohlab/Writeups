@@ -167,7 +167,7 @@ which will return a reverse shell to us on port **1337**.
 * Get the **jsonexploit** file on the vulnerable machine, using the same method we moved the **LinEnum** script.
 * Start a listening session on kali with `nc -lvnp 1337` and execute `nc 127.0.0.1 8839 <jsonexploit` on the **templeofdoom** machine.
 
-<img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/firemanlogin.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/firemanlogin.jpg">
 
 * ### We see that we have succesfully logged in as user **fireman**.
 
