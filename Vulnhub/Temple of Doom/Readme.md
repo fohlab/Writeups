@@ -14,18 +14,18 @@
 
 * Running **nmap** with `nmap -sC -sV -p- -A -oA templeofdoom 10.0.2.14` reveals **two** ports.
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/1.jpg"> 
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/1.jpg?raw=true"> 
 
 1. **SSH** on default port **22** .
 2. A <a href="https://en.wikipedia.org/wiki/Node.js">NodeJs</a> server running at port **666**.
 
 Let's check the server at port **666**, while also setting **gobuster** and **nikto** running in the background.
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/2.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/2.jpg?raw=true">
 
 We see an under construction message. After fuzzing the url a little bit and reloading the page a few times, the application errors out with 
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/3.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/3.jpg?raw=true">
 
 This error tells us that something went wrong with the serialization process and we also notice the module doing the serialization is **node-serialize**.
 
@@ -77,7 +77,7 @@ serialize.unserialize(payload);
 ```
 and run it.
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/4.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/4.jpg?raw=true">
 
 **We can clearly see our code got executed!**
 
@@ -95,17 +95,17 @@ serialize.unserialize(payload);
 ```
 and run locally, while also listening on port **1337**.
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/5.jpg" height="300px">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/5.jpg?raw=true" height="300px">
 
 **We have a shell!**. Now we have to do the same on the remote machine.
 
 * Let's refresh the site and capture the request in **Burp Suite**.
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/6.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/6.jpg?raw=true">
 
 We notice a cookie named **_profile_**, and it's value looks base64 encoded. Using burp we can **first** url-decode and **then** base64-decode the cookie resulting in:
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/7.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/7.jpg?raw=true">
 
 We can see the cookie is actually the **object**
 ```javascript
@@ -114,7 +114,7 @@ We can see the cookie is actually the **object**
 
 **Bonus:** Notice that the last value is not properly formatted and needs an extra `"`. Fix the object syntax, base64 encode it, then url-encode and include it in the request. You will be greeted with:
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/8.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/8.jpg?raw=true">
 
 This doesn't help us in anyway.
 
@@ -133,7 +133,7 @@ This doesn't help us in anyway.
 
 * We get a shell! Now we make it more interactive with `python -c "import pty; pty.spawn('/bin/bash')"` and stop our input from being echoed back at us by `Ctr-Z` to pause the process, `stty raw -echo` and  `fg` to bring back the shell. We can see we are logged in as user **nodeadmin**.
   
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/9.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/9.jpg?raw=true">
 
 ## Privilege Escalation
 ---
@@ -149,7 +149,7 @@ Trying `ls` in the `/home` directory reveals another user called **fireman**.
 
 * In the running processes window we notice something interesting
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/10.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/10.jpg?raw=true">
 
 A process called **ss-manager** is running as user **fireman**.
 
@@ -167,13 +167,13 @@ which will return a reverse shell to us on port **1337**.
 * Get the **jsonexploit** file on the vulnerable machine, using the same method we moved the **LinEnum** script.
 * Start a listening session on kali with `nc -lvnp 1337` and execute `nc 127.0.0.1 8839 <jsonexploit` on the **templeofdoom** machine.
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/firemanlogin.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/firemanlogin.jpg?raw=true">
 
 * ### We see that we have succesfully logged in as user **fireman**.
 
 * Let's check what **fireman** can run as **root** with `sudo -l`
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/sudol.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/sudol.jpg?raw=true">
 
 * Referring to <a href="https://gtfobins.github.io/">GTFObins</a>, we see that we can use **tcpdump** to our advantage and execute commands as **root!**.
 
@@ -182,8 +182,8 @@ which will return a reverse shell to us on port **1337**.
 * Now run `sudo tcpdump -ln -i eth0 -w /dev/null -W 1 -G 1 -z /tmp/rootshell.sh -Z root` as user **fireman**.
 * Checking our session on port **4444**, reveals we have succesfully gained a **root shell!**.
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/slast.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/slast.jpg?raw=true">
 
 ## Flag  
 
-  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/last.jpg">
+  <img src="https://github.com/astasinos/Writeups/blob/master/Vulnhub/Temple%20of%20Doom/images/last.jpg?raw=true">
