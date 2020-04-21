@@ -1,4 +1,4 @@
 # komodino  -  Blog
 
-  * <a href="https://github.com/astasinos/Writeups">Writeups</a>
+  * <a href="https://astasinos.github.io/astasinos/Writeups">Writeups</a>
   
