@@ -3,4 +3,4 @@
 
   * <a href="https://astasinos.github.io/Writeups/Vulnhub/Brainpan/">Brainpan</a>
   * <a href="https://astasinos.github.io/Writeups/Vulnhub/SkyTower/">SkyTower</a>
-  * <a href="https://astasinos.github.io/Writeups/Temple of Doom/">Temple of Doom</a>
+  * <a href="https://astasinos.github.io/Writeups/Vulnhub/Temple of Doom/">Temple of Doom</a>
