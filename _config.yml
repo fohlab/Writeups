@@ -1,3 +1,4 @@
 theme: jekyll-theme-midnight
 title: komodino  -  Blog
-
+github:
+  site.github.is_project_page: null
